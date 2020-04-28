@@ -12,4 +12,4 @@ Once you have done the above and commited to your branch, the test will run on a
 
 # Notes:
 - The command will stub out any env_file declaration in your compose files, as having this causes the config check to fail with file not found errors
-- The hook uses git diff-tree to find any files being commited, we cannot do a diff on files that do not exist yet in git, so your file will only be validated once it already exists in the git history.
+- The hook uses git diff-tree to find any files being commited, we cannot do a diff on files that do not exist yet in git, so your file will only be validated once it already exists in the git history. (IE, it will not be checked the first time you commit it, commit again to test it)
