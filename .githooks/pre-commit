@@ -6,6 +6,7 @@
 
 IFS='\n'
 arr=($(git diff-tree --name-only --no-commit-id HEAD))
+echo $arr
 unset IFS
 echo "Checking for any docker-compose files that are being committed..."
 for x in $arr; 
