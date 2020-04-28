@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# Git pre-commit hook to verify docker-compose files
+# Uses docker compose directly for verification, and stubs
+# out and env_file declarations
+
+IFS='\n'
+arr=($(git diff-tree --name-only --no-commit-id HEAD))
+unset IFS
+echo "Checking for any docker-compose files that are being committed..."
+for x in $arr; 
+do 
+if [[ "$x" == *"docker-compose"* ]]; then
+    echo "Testing compose file named: $x"
+	test=`cat docker-compose.yml | sed '/env_file/N; //d' | docker-compose -f /dev/stdin config -q --no-interpolate`
+	return=`echo $?`
+	if [ "$return" -eq "1" ]; then
+	  echo "$x does not pass docker-compose config check"
+	  echo "Not commiting..."
+	  exit 1
+	else
+	  echo "File $x passes compose check"
+	fi
+   fi;
+done;
