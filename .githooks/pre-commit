@@ -22,5 +22,5 @@ if [[ "$x" == *"docker-compose"* ]]; then
 	else
 	  echo "File $x passes compose check"
 	fi
-   fi;
+   fi
 done;
